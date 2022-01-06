@@ -1,1 +1,213 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class LaunchPage implements ActionListener {
+     double montantActuelle ;
+    JFrame frame = new JFrame();
+    JButton button = new JButton("Montant actuelle");
+    JButton depot = new JButton("Depot");
+    JButton retirer = new JButton("Retrait");
+    JButton quitter = new JButton("Quitter");
+
+    LaunchPage() {
+
+        button.setBounds(100, 160, 200, 40);
+        button.setFocusable(false);
+        button.addActionListener(this);
+
+        depot.setBounds(100, 110, 200, 40);
+        depot.setFocusable(false);
+        depot.addActionListener(this);
+
+        retirer.setBounds(100, 60, 200, 40);
+        retirer.setFocusable(false);
+        retirer.addActionListener(this);
+
+        quitter.setBounds(100, 220, 200, 40);
+        quitter.setFocusable(false);
+        quitter.addActionListener(this);
+
+
+        frame.add(button);
+        frame.add(depot);
+        frame.add(retirer);
+        frame.add(quitter);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(420, 420);
+        frame.setLayout(null);
+        frame.setVisible(true);
+
+
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == button) {
+           montantActuelle montant = new montantActuelle();
+        }
+
+
+        if (e.getSource() == depot) {
+            depot mondepot = new depot();
+        }
+
+        if (e.getSource() == retirer) {
+            Retirer jeretire = new Retirer();
+        }
+        if (e.getSource() == quitter) {
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+
+        }
+
+
+    }
+
+    class montantActuelle {
+
+        JFrame frame = new JFrame();
+        JLabel label = new JLabel("Votre montant actuelle est de " +String.format("%.2f", montantActuelle) + " $");
+
+        montantActuelle() {
+
+            label.setBounds(50, 100, 900, 50);
+            label.setFont(new Font(null, Font.PLAIN, 15));
+
+            frame.add(label);
+
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(420, 420);
+            frame.setLayout(null);
+            frame.setVisible(true);
+
+
+        }
+    }
+
+    class Retirer implements ActionListener {
+
+
+        JFrame frame = new JFrame();
+        JLabel label = new JLabel("Entrez le montant a retirer");
+        JButton entree = new JButton("Submit");
+        JTextField t1 = new JTextField();
+
+
+        Retirer() {
+            entree.setBounds(100, 200, 200, 30);
+
+            label.setBounds(100, 100, 300, 50);
+            label.setFont(new Font(null, Font.PLAIN, 15));
+
+            frame.add(label);
+
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(420, 420);
+            frame.setLayout(null);
+            frame.setVisible(true);
+
+
+            t1.setBounds(100, 150, 200, 30);
+            frame.add(t1);
+            frame.add(entree);
+
+
+
+            entree.addActionListener(this);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+
+            try {
+             double montantretire = Double.parseDouble(t1.getText());
+                if (e.getSource() == entree) {
+                    if (montantretire < 0) {
+                        System.out.println("Le montant ne peut pas etre negatif ");
+                    } else {
+
+                        if (montantActuelle == 0) {
+                            System.out.println("Erreur vous n'avez pas d'argent  ");
+
+                        } else if (montantretire <= montantActuelle) {
+                            montantActuelle = montantActuelle - montantretire;
+
+                        } else {
+                            System.out.println("Vous n'avez pas suffisament de fonds ");
+
+                        }
+                    }
+
+                }
+            } catch (NumberFormatException r) {
+                System.out.println("Erreur , Entrez une valeur numerique superieur a 0");
+            }
+        }
+    }
+
+
+    class depot implements ActionListener {
+
+
+
+        JFrame frame = new JFrame();
+        JLabel label = new JLabel("Entrez le montant a deposer");
+        JButton entree = new JButton("Submit");
+        JTextField t1 = new JTextField();
+
+        depot() {
+            entree.setBounds(100, 200, 200, 30);
+            label.setBounds(100, 100, 300, 50);
+            label.setFont(new Font(null, Font.PLAIN, 15));
+
+            frame.add(label);
+
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(420, 420);
+            frame.setLayout(null);
+            frame.setVisible(true);
+
+
+            t1.setBounds(100, 150, 200, 30);
+            frame.add(t1);
+            frame.add(entree);
+
+
+            entree.addActionListener(this);
+        }
+
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                if (e.getSource() == entree) {
+                    if(Double.parseDouble (t1.getText())<0){
+                        System.out.println("Le montant ne peut pas etre negatif ");
+                    }else
+                        montantActuelle =montantActuelle +   Double.parseDouble (t1.getText());
+
+                }
+            }catch (NumberFormatException o ){
+                System.out.println("Erreur , Entrez une valeur numerique superieur a 0");
+            }
+
+
+        }
+
+    }
+
+
+    public static void main(String[] args) {
+
+        LaunchPage launchPage = new LaunchPage();
+
+    }
+
+
+
+    }
+
 
